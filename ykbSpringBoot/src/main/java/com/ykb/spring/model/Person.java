@@ -10,13 +10,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.ykb.spring.rest.validation.MyStrValid;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
+@ApiModel(description = "Person datası")
 public class Person {
 
     @XmlElement(name = "isim")
     @NotEmpty(message = "isim boş olamaz")
     @Size(min = 2, max = 20, message = "isim 2 ile 20 arasında olamalı")
+    @ApiModelProperty(name = "isim", example = "ashdasjdh")
     private String name;
 
     @Size(min = 3, max = 25, message = "soyisim 3 ile 25 arasında olamalı")
