@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+
+@Service
+// @Scope("prototype")
 public class PersonManager {
 
     private final Map<String, Person> personMap = new HashMap<>();
@@ -20,5 +22,9 @@ public class PersonManager {
 
     public List<Person> getAllPersons() {
         return new ArrayList<>(this.personMap.values());
+    }
+
+    public Person getPerson(final String emailParam) {
+        return this.personMap.get(emailParam);
     }
 }

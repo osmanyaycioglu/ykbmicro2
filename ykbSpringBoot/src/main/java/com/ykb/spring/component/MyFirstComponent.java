@@ -7,6 +7,7 @@ public class MyFirstComponent {
 
     private String name;
 
+
     public String getName() {
         return this.name;
     }

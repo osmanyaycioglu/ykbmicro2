@@ -15,6 +15,12 @@ import com.ykb.spring.component.MyFirstComponent;
 import com.ykb.spring.model.Person;
 import com.ykb.spring.model.PersonManager;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Example;
+import io.swagger.annotations.ExampleProperty;
+
 @RestController
 public class MyFirstRest {
 
@@ -97,6 +103,13 @@ public class MyFirstRest {
                           person.getAge());
     }
 
+    @ApiOperation(notes = "test note", value = "Person yaratma")
+    @ApiResponses({
+                    @ApiResponse(code = 800,
+                                 message = "şudur",
+                                 examples = @Example(@ExampleProperty(mediaType = "application/json",
+                                                                      value = "{osman:1}")))
+    })
     @PostMapping(value = "/hello9/{xyz}",
                  produces = {
                               MediaType.APPLICATION_JSON_VALUE,
