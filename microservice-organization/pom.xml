@@ -8,9 +8,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ykb.cloud</groupId>
-	<artifactId>microservice-employee</artifactId>
+	<artifactId>microservice-organization</artifactId>
 	<version>1.0.0</version>
-	<name>microservice-employee</name>
+	<name>microservice-organization</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
