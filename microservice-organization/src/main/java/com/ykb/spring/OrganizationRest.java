@@ -2,6 +2,8 @@ package com.ykb.spring;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +17,8 @@ import com.netflix.discovery.EurekaClient;
 @RestController
 @RequestMapping("/organization")
 public class OrganizationRest {
+
+    private final Logger logger = LoggerFactory.getLogger(OrganizationRest.class);
 
     @Autowired
     private RestTemplate rt;
@@ -34,14 +38,20 @@ public class OrganizationRest {
         List<InstanceInfo> instancesLoc = this.ec.getApplication("EMPLOYEE")
                                                  .getInstances();
         for (InstanceInfo instanceInfoLoc : instancesLoc) {
-            System.out.println(instanceInfoLoc);
+            if (this.logger.isInfoEnabled()) {
+                this.logger.info("[OrganizationRest][createEmployee2]-> " + instanceInfoLoc);
+            }
         }
         InstanceInfo nextServerFromEurekaLoc = this.ec.getNextServerFromEureka("EMPLOYEE",
                                                                                false);
-        String forObjectLoc = this.rt.getForObject("http://"
-                                                   + nextServerFromEurekaLoc.getHostName()
-                                                   + "/employee/greet",
-                                                   String.class);
+        RestTemplate restTemplateLoc = new RestTemplate();
+
+        String forObjectLoc = restTemplateLoc.getForObject("http://"
+                                                           + nextServerFromEurekaLoc.getIPAddr()
+                                                           + ":"
+                                                           + nextServerFromEurekaLoc.getPort()
+                                                           + "/employee/greet",
+                                                           String.class);
         return forObjectLoc;
     }
 
