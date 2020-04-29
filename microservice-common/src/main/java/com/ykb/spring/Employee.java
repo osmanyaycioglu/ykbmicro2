@@ -1,6 +1,5 @@
 package com.ykb.spring;
 
-
 public class Employee {
 
     private String name;

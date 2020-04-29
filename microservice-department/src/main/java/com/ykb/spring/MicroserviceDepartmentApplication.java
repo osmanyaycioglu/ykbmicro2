@@ -3,17 +3,13 @@ package com.ykb.spring;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-@EnableDiscoveryClient
-@EnableFeignClients
 @EnableRabbit
-public class MicroserviceOrganizationFeignApplication {
+public class MicroserviceDepartmentApplication {
 
     public static void main(final String[] args) {
-        SpringApplication.run(MicroserviceOrganizationFeignApplication.class,
+        SpringApplication.run(MicroserviceDepartmentApplication.class,
                               args);
     }
 
