@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.ykb.spring.event.MyRemoteEvent;
 
 @RestController
@@ -50,7 +52,11 @@ public class OrganizationRest {
         return this.dynName;
     }
 
-
+    @HystrixCommand(fallbackMethod = "createEmployeeFallback",
+                    commandProperties = {
+                                          @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",
+                                                           value = "500")
+                    })
     @PostMapping("/employee/create")
     public String createEmployee(@RequestBody final Employee employeeParam) {
         String forObjectLoc = this.ier.greetEmployee();
@@ -67,4 +73,7 @@ public class OrganizationRest {
     }
 
 
+    public String createEmployeeFallback(final Employee employeeParam) {
+        return "Error while creating Employee";
+    }
 }
