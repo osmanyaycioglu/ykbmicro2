@@ -24,15 +24,18 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity httpParam) throws Exception {
-        httpParam.httpBasic()
-                 .and()
-                 .requestMatchers()
-                 .antMatchers("/hello")
-                 .and()
-                 .anonymous()
-                 .and()
+        httpParam.cors()
+                 .disable()
+                 .csrf()
+                 .disable()
                  .authorizeRequests()
-                 .anyRequest()
-                 .authenticated();
+                 .antMatchers("/hello")
+                 .permitAll()
+                 .antMatchers("/user/**")
+                 .hasRole("ADMIN")
+                 .antMatchers("/**")
+                 .authenticated()
+                 .and()
+                 .httpBasic();
     }
 }
